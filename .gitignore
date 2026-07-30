@@ -1,0 +1,29 @@
+# Build output
+bin/
+obj/
+publish*/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Local packaged binaries
+*.pdb
+*.nupkg
+
+# Character assets are user supplied and are not covered by the code license.
+Assets/*.jpg
+Assets/*.jpeg
+Assets/*.png
+Assets/*.webp
+!Assets/README.md
+!Assets/.gitkeep
