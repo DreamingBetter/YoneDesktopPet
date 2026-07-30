@@ -26,5 +26,6 @@ Assets/*.jpeg
 Assets/*.png
 Assets/*.webp
 !Assets/yone.jpg
+!Assets/向左飞行.png
 !Assets/README.md
 !Assets/.gitkeep

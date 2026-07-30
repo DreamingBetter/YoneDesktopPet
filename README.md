@@ -96,7 +96,8 @@ YoneDesktopPet/
 │  └─ screenshots/
 └─ Assets/
    ├─ README.md
-   └─ yone.jpg
+   ├─ yone.jpg
+   └─ 向左飞行.png
 ```
 
 ## 许可证
