@@ -25,5 +25,6 @@ Assets/*.jpg
 Assets/*.jpeg
 Assets/*.png
 Assets/*.webp
+!Assets/yone.jpg
 !Assets/README.md
 !Assets/.gitkeep

@@ -2,6 +2,20 @@
 
 一个基于 WPF 的 Windows 桌面宠物示例。角色会以透明无边框窗口悬浮在桌面上，支持拖动、缩放、随机台词、窗口吸附和缓慢降落动画。
 
+## 预览
+
+### 悬浮待机
+
+![悬浮待机](docs/screenshots/idle-floating.png)
+
+### 窗口吸附
+
+![窗口吸附](docs/screenshots/window-attach.png)
+
+### 缓慢降临
+
+![缓慢降临](docs/screenshots/divine-descent.png)
+
 ## 功能
 
 - 透明、无边框、默认始终置顶。
@@ -22,9 +36,11 @@
 
 ## 素材说明
 
-本仓库只开源程序源码。角色图片、游戏角色、皮肤名称、台词等可能属于各自权利方。
+本仓库包含一张示例角色图片 `Assets/yone.jpg`，用于展示和直接运行项目。
 
-为了避免把第三方或用户私有图片错误地纳入开源许可，仓库默认不包含 `Assets/yone.jpg`。如果要在本地运行，请自行准备一张抠图后的角色图片，并放到：
+注意：代码使用 MIT License，但角色图片、游戏角色、皮肤名称、台词等可能属于各自权利方，不属于本仓库代码许可证授权范围。
+
+如果要替换为自己的角色图片，请把图片放到：
 
 ```text
 Assets/yone.jpg
@@ -50,6 +66,8 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 publish_yone/YoneDesktopPet.exe
 ```
 
+也可以在 GitHub Releases 页面下载已经发布好的 Windows 单文件 EXE。
+
 ## 台词规则
 
 点击和待机随机台词来自完整台词池。
@@ -74,8 +92,11 @@ YoneDesktopPet/
 ├─ MainWindow.xaml
 ├─ MainWindow.xaml.cs
 ├─ YoneDesktopPet.csproj
+├─ docs/
+│  └─ screenshots/
 └─ Assets/
-   └─ README.md
+   ├─ README.md
+   └─ yone.jpg
 ```
 
 ## 许可证
