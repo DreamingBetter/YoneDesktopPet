@@ -63,9 +63,7 @@ namespace YoneDesktopPet
         private DispatcherTimer? _ambientSpeechTimer;
         private DispatcherTimer? _delayedClickSpeechTimer;
         private BitmapSource? _petBitmap;
-        private BitmapSource? _flightLeftBitmap;
         private double _imageAspect = 1;
-        private double _flightImageAspect = 1;
         private double _petHeight = 170;
         private double _anchorCenterX;
         private double _anchorBottomY;
@@ -103,10 +101,8 @@ namespace YoneDesktopPet
             InitializeComponent();
 
             _petBitmap = PetImageLoader.LoadTransparentCutout("Assets/yone.jpg");
-            _flightLeftBitmap = PetImageLoader.LoadTransparentCutout("Assets/向左飞行.png");
             PetImage.Source = _petBitmap;
             _imageAspect = _petBitmap.PixelWidth / (double)_petBitmap.PixelHeight;
-            _flightImageAspect = _flightLeftBitmap.PixelWidth / (double)_flightLeftBitmap.PixelHeight;
             PetImage.RenderTransform = new TransformGroup
             {
                 Children =
@@ -274,7 +270,6 @@ namespace YoneDesktopPet
             {
                 _dragVelocityX = 0;
                 _dragVelocityY = 0;
-                ApplyPetLayout();
                 if (!TryAttachToNearbyWindow())
                 {
                     PlayReleaseFloat();
@@ -467,8 +462,7 @@ namespace YoneDesktopPet
 
         private void ApplyPetLayout()
         {
-            ApplyCurrentSprite();
-            var petWidth = _petHeight * GetCurrentImageAspect();
+            var petWidth = _petHeight * _imageAspect;
             var petHeight = _petHeight;
             var padding = GetMotionPadding();
 
@@ -486,25 +480,6 @@ namespace YoneDesktopPet
 
             ApplyPetMotion(DateTimeOffset.UtcNow);
             PositionBubble();
-        }
-
-        private void ApplyCurrentSprite()
-        {
-            var source = IsFlightPoseActive() && _flightLeftBitmap != null ? _flightLeftBitmap : _petBitmap;
-            if (source != null && PetImage.Source != source)
-            {
-                PetImage.Source = source;
-            }
-        }
-
-        private bool IsFlightPoseActive()
-        {
-            return _isDragging && _flightLeftBitmap != null;
-        }
-
-        private double GetCurrentImageAspect()
-        {
-            return IsFlightPoseActive() ? _flightImageAspect : _imageAspect;
         }
 
         private void StartMotionTimer()
@@ -586,9 +561,8 @@ namespace YoneDesktopPet
                 var dragY = Math.Clamp(_dragVelocityY / 900, -1, 1);
                 var speed = Math.Clamp(Math.Sqrt(_dragVelocityX * _dragVelocityX + _dragVelocityY * _dragVelocityY) / 950, 0, 1);
                 var wave = Math.Sin(dragSeconds * 12.0);
-                var mirror = _dragPoseDirection > 0 ? -1 : 1;
 
-                scale.ScaleX = mirror * _animScaleX * (1 + speed * 0.012);
+                scale.ScaleX = _animScaleX * (1 + speed * 0.012);
                 scale.ScaleY = _animScaleY * (1 + speed * 0.008);
                 rotate.Angle = Math.Clamp(_dragPoseDirection * (7 + speed * 8) + wave * 5.5 + dragY * 3.0 + _animRotate, -24, 24);
                 translate.X = Math.Clamp(_dragPoseDirection * 8 + wave * 4 - dragX * 4, -24, 24) * sizeScale;
@@ -807,7 +781,7 @@ namespace YoneDesktopPet
 
         private void FollowAttachedWindow(Rect rect)
         {
-            var petWidth = _petHeight * GetCurrentImageAspect();
+            var petWidth = _petHeight * _imageAspect;
             var petHeight = _petHeight;
             var topOverlap = Math.Max(10, _petHeight * 0.055);
             var sideOverlap = Math.Max(22, _petHeight * 0.13);

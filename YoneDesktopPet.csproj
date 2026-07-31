@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Resource Include="Assets\yone.jpg" Condition="Exists('Assets\yone.jpg')" />
-    <Resource Include="Assets\向左飞行.png" Condition="Exists('Assets\向左飞行.png')" />
   </ItemGroup>
 
 </Project>
